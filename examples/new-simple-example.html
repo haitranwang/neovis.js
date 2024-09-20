@@ -1,0 +1,56 @@
+import NeoVis, { NEOVIS_ADVANCED_CONFIG } from 'neovis.js';
+import { useEffect } from "react";
+
+
+function App() {
+
+  useEffect(() => {
+    let neoViz;
+
+    function draw() {
+      const config = {
+        containerId: "viz",
+        neo4j: {
+          serverUrl: "bolt://localhost:7687",
+          serverUser: "neo4j",
+          serverPassword: "neo4j",
+        },
+        labels: {
+          Character: {
+            label: "name",
+            value: "pagerank",
+            group: "community",
+            [NEOVIS_ADVANCED_CONFIG]: {
+              static: {
+                font: '18px',
+                shape: 'box',
+                color: '#00ff00'
+              }
+            }
+          }
+        },
+        relationships: {
+          INTERACTS: {
+            value: "weight"
+          }
+        },
+         initialCypher: "MATCH (n) RETURN n limit 20"   // here I'm trying to use default Movie DBMS
+      };
+
+      neoViz = new NeoVis.default(config);
+      neoViz.render();
+      console.log("neoViz >> ", neoViz);
+    }
+
+    draw();
+  }, [])
+
+  return (
+    <div className="App">
+      Hello
+      <div id="viz"></div>
+    </div>
+  );
+}
+
+export default App;

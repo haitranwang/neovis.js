@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>DataViz</title>
+        <style type="text/css">
+            #viz {
+                width: 1920px;
+                height: 1080px;
+            }
+        </style>
+        <script src="../dist/neovis.js"></script>
+    </head>
+    <script>
+        function draw() {
+            var config = {
+                containerId: "viz",
+                neo4j: {
+					serverUrl: "neo4j://24d8abbc.databases.neo4j.io:7687",
+					serverUser: "neo4j",
+					serverPassword: "bkPgc0Jc6Q1JW0rz-cXPz_Qk8X9Il5g_IS6IXP3mi2I",
+					driverConfig: {
+						encrypted: "ENCRYPTION_ON",
+						trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES"
+					},
+				},
+                relationships: {
+                    TRANSFER: {
+                        caption: false,
+                        thickness: "count",
+                        color: "red"
+                    }
+                },
+                labels: {
+                    Wallet: {
+                        label: "address",
+                        shape: 'square',
+                    }
+                },
+                initialCypher: "MATCH (n:Wallet)-[r:TRANSFER]->(m:Wallet) RETURN *",
+                encrypted: "ENCRYPTION_ON",
+            }
+
+            var viz = new NeoVis.default(config);
+            viz.render();
+            console.log("viz >> ", viz);
+        }
+    </script>
+    <body onload="draw()">
+        <div id="viz"></div>
+    </body>
+</html>

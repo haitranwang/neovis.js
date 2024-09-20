@@ -36,23 +36,28 @@
 			var config = {
 				containerId: "viz",
 				neo4j: {
-					serverUrl: "bolt://localhost:7687",
+					serverUrl: "neo4j://24d8abbc.databases.neo4j.io:7687",
 					serverUser: "neo4j",
-					serverPassword: "sorts-swims-burglaries"
-				},
-				labels: {
-					Character: {
-						label: "name",
-						value: "pagerank",
-						group: "community"
+					serverPassword: "bkPgc0Jc6Q1JW0rz-cXPz_Qk8X9Il5g_IS6IXP3mi2I",
+					driverConfig: {
+						encrypted: "ENCRYPTION_ON",
+						trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES"
 					}
 				},
 				relationships: {
-					INTERACTS: {
-						value: "weight"
-					}
-				},
-				initialCypher: "MATCH (n)-[r:INTERACTS]->(m) RETURN n,r,m"
+                    TRANSFER: {
+                        caption: false,
+                        thickness: "count",
+                        color: "red"
+                    }
+                },
+                labels: {
+                    Wallet: {
+                        label: "address",
+                        shape: "square",
+                    }
+                },
+                initialCypher: "MATCH p=()-[:TRANSFER]->() RETURN p LIMIT 25",
 			};
 
 			viz = new NeoVis.default(config);

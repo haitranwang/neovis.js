@@ -766,7 +766,7 @@ export class NeoVis {
 		this.#query = query;
 		this.render(undefined, parameters);
 	}
-	
+
 	/**
 	 * Execute an arbitrary function and re-render the visualization
 	 * @param func
@@ -779,9 +779,9 @@ export class NeoVis {
 
 	/**
 	 * Execute an arbitrary Cypher query and update the current visualization, retaning current nodes
-	 * This function will not change the original query given by renderWithCypher or the inital cypher.	
+	 * This function will not change the original query given by renderWithCypher or the inital cypher.
 	 * @param parameters - parameters to send to the cypher
-	 * 
+	 *
 	 */
 	updateWithCypher(query: Cypher, parameters?: unknown): void {
 		this.render(query, parameters);

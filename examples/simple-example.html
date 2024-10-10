@@ -17,7 +17,8 @@
     </style>
 
     <!-- FIXME: load from dist -->
-    <script type="text/javascript" src="../dist/neovis.js"></script>
+    <!-- <script type="text/javascript" src="../dist/neovis.js"></script> -->
+	<script type="text/javascript" src="https://unpkg.com/neovis.js@2.0.2"></script>
 
 
     <script
@@ -36,7 +37,7 @@
 			var config = {
 				containerId: "viz",
 				neo4j: {
-					serverUrl: "neo4j://24d8abbc.databases.neo4j.io:7687",
+					serverUrl: "neo4j://24d8abbc.databases.neo4j.io",
 					serverUser: "neo4j",
 					serverPassword: "bkPgc0Jc6Q1JW0rz-cXPz_Qk8X9Il5g_IS6IXP3mi2I",
 					driverConfig: {
@@ -44,20 +45,19 @@
 						trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES"
 					}
 				},
-				relationships: {
-                    TRANSFER: {
-                        caption: false,
-                        thickness: "count",
-                        color: "red"
-                    }
-                },
-                labels: {
+				labels: {
                     Wallet: {
                         label: "address",
                         shape: "square",
+						group: "address"
                     }
                 },
-                initialCypher: "MATCH p=()-[:TRANSFER]->() RETURN p LIMIT 25",
+				relationships: {
+                    TRANSFER: {
+                        value: "weight",
+                    }
+                },
+                initialCypher: "MATCH (n)-[r:TRANSFER]->(m) RETURN n,r,m LIMIT 100",
 			};
 
 			viz = new NeoVis.default(config);
